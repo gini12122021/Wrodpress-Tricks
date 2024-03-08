@@ -1,0 +1,45 @@
+<?php 
+//functions.php of the active theme, You can open this URL to see the section: Http://siteurl.com/wp-admin/options-general.php
+//callback to print a simple section in general page
+function my_custom_section_callback(){
+	echo 'This text is inside the callback!';
+}
+
+//callback to print a simple input field
+function my_custom_field_callback(){
+	echo '<input name="my_id_for_setting_field" value="'. get_option('my_id_for_setting_field') .'" />';
+}
+
+function add_my_custom_section_to_settings(){
+
+    //register setting to save the data
+	register_setting( 'general', 'my_id_for_setting_field' );
+
+	//add the section to general page in admin panel
+	add_settings_section(
+		'my_id_for_settings_section',
+		'A custom title to show',
+		'my_custom_section_callback',
+		'general',
+		array(
+			'before_section' => 'Text Before the Section', //html for before the section
+			'after_section' => 'Text After the Section', //html for after the section
+		)
+	);
+
+	//add a sample field to this section.
+
+
+	add_settings_field(
+		'my_id_for_setting_field',  //$id: Unique ID to set of the field. This id will be the value for the id=’your-id’ in the HTML.
+		'A custom field', //$title: The label to print for this field in settings form. 
+		'my_custom_field_callback', //$callback: Name of your custom function that you want to print the field in it.
+		'general',  //$page: Slug of the exact setting page you want to print this field in. Default options are general, reading, writing, discussion, and media. If you added a custom settings page, you can use its slug here.
+		//put the id of custom section here:
+		'my_id_for_settings_section'   //$section: Slug of the exact section you want to print this field in. The default value for the section is ‘default’.
+	);
+
+}
+add_action('admin_init', 'add_my_custom_section_to_settings');
+
+?>
