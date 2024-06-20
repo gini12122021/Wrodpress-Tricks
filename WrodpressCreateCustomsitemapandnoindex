@@ -1,0 +1,78 @@
+//code add the child functionfile 
+//create custom post type or post to munually sitemap create code or you can create your url
+
+// custom sitemap for newsroom
+function custom_generate_sitemap_for_newsroom()
+{
+	$posts = get_posts(array(
+		'post_type' => 'newsupdates',  //custom post type
+		'post_status' => 'publish',
+		'posts_per_page' => -1
+	));
+
+	$sitemap = '<?xml version="1.0" encoding="UTF-8"?>';
+	$sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+
+	foreach ($posts as $post) {
+		setup_postdata($post);
+
+		// Get the original URL
+
+
+		$post_name = $post->post_name;
+		//$url = '';
+
+		$year = get_the_date('Y', $post);
+		$month = get_the_date('m', $post);
+
+		$url = site_url() . '/newsroom/' . $year . '/' . $month . '/' . $post_name;  //custom url create
+
+		// Get the post date
+		$lastmod = get_the_modified_time('c', $post);
+
+		$sitemap .= '<url>';
+		$sitemap .= '<loc>' . esc_url($url) . '</loc>';
+		$sitemap .= '<lastmod>' . $lastmod . '</lastmod>';
+		$sitemap .= '<changefreq>weekly</changefreq>'; // You can adjust this if needed
+		$sitemap .= '<priority>0.8</priority>'; // You can adjust this if needed
+		$sitemap .= '</url>';
+	}
+
+	wp_reset_postdata();
+
+	$sitemap .= '</urlset>';
+
+	// Save the sitemap to a file
+	file_put_contents(ABSPATH . 'newsupdates-sitemap.xml', $sitemap);  // create the xml name
+}
+
+// Hook into WordPress to generate the sitemap on a specific event
+add_action('save_post', 'custom_generate_sitemap_for_newsroom');
+
+
+
+/* Nodex  code like page pr slug wise */
+/*noindex no foolow */
+function hookfornoindex()
+{
+
+	if (is_singular('jet-menu') ||  is_page('6') ) {
+?>
+		<meta name="robots" content="noindex, nofollow">
+		<meta name="googlebot" content="noindex">
+<?php
+	}
+}
+add_action('wp_head', 'hookfornoindex');
+
+/*Redirect the page code in htaccess*/
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule ^job_type/.*$ / [R=301,L]    //job_type  custom page slug
+RewriteRule ^author/.*$ / [R=301,L]    //author  custom page slug
+RewriteRule ^jet-menu/.*$ / [R=301,L]   //jjet-menu  custom page slug
+#RewriteRule ^newsroom/.*$ / [R=301,L] //newsroom  custom page slug
+</IfModule>
+
+
+
