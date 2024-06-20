@@ -8,7 +8,8 @@ Description : WordPress admin panel with examples., we'll introduce the WordPres
 3) You can open this URL to see the section: Http://siteurl.com/wp-admin/options-general.php
 4) Look for something like this screenshot: https://capture.dropbox.com/nkVjQ7YOm7gWgJLf
 
+2.WrodpressCreateCustomsitemapandnoindex
+1) We can  Create Custom Sitemap xml Generate code
+2)  Redirect the Particular page code in htaccess
+3)Create the specific page or custom post nonindexed or nonflow
 
-We can  Create Custom Sitemap xml Generate code
-Redirect the Particular page code in htaccess
-Create the specific page or custom post nonindexed or nonflow
