@@ -7,3 +7,8 @@ Description : WordPress admin panel with examples., we'll introduce the WordPres
 2) After using this code in your WordPress custom plugin or functions.php of the active theme, 
 3) You can open this URL to see the section: Http://siteurl.com/wp-admin/options-general.php
 4) Look for something like this screenshot: https://capture.dropbox.com/nkVjQ7YOm7gWgJLf
+
+
+We can  Create Custom Sitemap xml Generate code
+Redirect the Particular page code in htaccess
+Create the specific page or custom post nonindexed or nonflow
